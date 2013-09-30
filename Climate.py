@@ -11,10 +11,22 @@ def processOnePage(data1):
 		# http://climate.weather.gc.ca/climateData/dailydata_e.html?timeframe=2&Prov=ONT&StationID=4612&dlyRange=1931-01-01|1966-11-30&Year=1966&Month=11&Day=01
 		#conn = httplib.HTTPConnection("lrcdrrvsdvap002")
 		#conn.request("GET", "/web/page2.htm")
-		YMD = dlyRange.split("|")[1].split("-")
+		
+		#f = open (StationID + ".txt","w")
+		#f.write(StationName + "\n")
+		#print StationID + ", " + StationName
+		#print (dlyRange == "|")
+		if (dlyRange == "|"):
+			#results.append([StationName, StationID, hlyRange, dlyRange, mlyRange])
+			#continue
+			YMD = hlyRange.split("|")[1].split("-")
+		else:
+			YMD = dlyRange.split("|")[1].split("-")
 		conn = httplib.HTTPConnection("climate.weather.gc.ca")
 		conn.request("GET", "/climateData/dailydata_e.html?timeframe=2&Prov=ONT&StationID=" + StationID + "&dlyRange=" + dlyRange + "&Year=" + YMD[0] + "&Month=" + YMD[1] + "&Day=" + YMD[2])		
 		data1 = conn.getresponse().read()
+		#f.write(data1 + "\n")
+		#f.close()
 		latitude = data1.split('<a href="/glossary_e.html#latitude">Latitude</a>:')[1].split('<a href="/glossary_e.html#longitude">Longitude</a>:')[0]
 		latitude = latitude.split('<td>')[1].split('</td>')[0]
 		degree = float(latitude.split('<abbr title="degrees">&deg;</abbr>')[0])
@@ -37,7 +49,7 @@ def processOnePage(data1):
 		TCID = TCID.split('<td>')[1].split('</td>')[0]
 		results.append([StationName, StationID, hlyRange, dlyRange, mlyRange, latitude, longitude, elevation,  climateID, WMOID, TCID])
 		#print StationName + "\t" + StationID + "\t" + hlyRange + "\t" + dlyRange + "\t" + mlyRange + "\t" + latitude + "\t" + longitude + "\t" + elevation  + "\t" + climateID + "\t" + WMOID + "\t" + TCID
-		time.sleep(5)
+		#time.sleep(5)
 	return results
 
 # http://climate.weather.gc.ca/advanceSearch/searchHistoricDataStations_e.html?searchType=stnProv&timeframe=1&lstProvince=ONT&optLimit=yearRange&StartYear=1840&EndYear=2013&Year=2013&Month=9&Day=25&selRowPerPage=100&cmdProvSubmit=Search
@@ -58,7 +70,7 @@ while (startRow < recordNumber):
 	results =  results + processOnePage(conn.getresponse().read())
 	time.sleep(5)
 	startRow = startRow + 100
-f = open ("rows_contaion_enter.txt","w")
+f = open ("weather.txt","w")
 f.write("\t".join(["StationName", "StationID", "hlyRange", "dlyRange", "mlyRange", "latitude", "longitude", "elevation", "climateID", "WMOID", "TCID"]) + "\n")
 for result in results:
 	#print "\t".join(result)
