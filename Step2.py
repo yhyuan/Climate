@@ -41,7 +41,7 @@ def createFeatureClass(featureName, featureData, featureFieldList, featureInsert
 	print "Finish " + featureName + " feature class."
 
 featureName = "EC_Weather_Stations"
-featureFieldList = [["STATIONNAME", "TEXT", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Elevation", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TC_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["COMMENTS", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Climate_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["WMO_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
+featureFieldList = [["STATIONNAME", "TEXT", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["ALTITUDE", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TC_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["COMMENTS", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Climate_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["WMO_ID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
 featureInsertCursorFields = tuple(["SHAPE@XY"] + map(lambda list: list[0],featureFieldList))
 
 f = open (INPUT_PATH + "\\weather.txt","r")

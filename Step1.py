@@ -72,14 +72,14 @@ def processOnePage(data1):
 	return results
 
 conn = httplib.HTTPConnection("climate.weather.gc.ca")
-conn.request("GET", "/advanceSearch/searchHistoricDataStations_e.html?searchType=stnProv&timeframe=1&lstProvince=ON&optLimit=yearRange&StartYear=1840&EndYear=2015&Year=2015&Month=7&Day=29&selRowPerPage=100&cmdProvSubmit=Search&startRow=1")
+conn.request("GET", "/advanceSearch/searchHistoricDataStations_e.html?searchType=stnProv&timeframe=1&lstProvince=ON&optLimit=yearRange&StartYear=1840&EndYear=2015&Year=2015&Month=7&Day=29&selRowPerPage=100&cmdProvSubmit=Search")
 r1 = conn.getresponse()
 data1 = r1.read()
 temp = data1[:data1.find('locations match your customized search. Confirm the')]
 recordNumber = int(temp[temp.rfind('>') + 1:])
 time.sleep(5)
 results = processOnePage(data1)
-startRow = 99
+startRow = 101
 while (startRow < recordNumber):
 	conn = httplib.HTTPConnection("climate.weather.gc.ca")
 	conn.request("GET", "/advanceSearch/searchHistoricDataStations_e.html?searchType=stnProv&timeframe=1&lstProvince=ON&optLimit=yearRange&StartYear=1840&EndYear=2015&Year=2015&Month=7&Day=29&selRowPerPage=100&cmdProvSubmit=Search&startRow=" + str(startRow))
